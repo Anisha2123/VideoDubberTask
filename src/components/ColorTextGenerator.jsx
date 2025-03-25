@@ -30,14 +30,15 @@ const fgMapping = {
 
 // Mapping for Discord-supported background ANSI colors
 const bgMapping = {
-  "Firefly Dark Blue": "40",
+  "Red": "40",
+  // "Firefly Dark Blue": "40",
   "Orange": "41",
-  "Marble Blue": "42",
-  "Greyish Turquoise": "43",
-  "Gray": "44",
+  // "Blue": "42",
+  // "Greyish Turquoise": "43",
+  // "Gray": "44",
   "Indigo": "45",
-  "Light Gray": "46",
-  "White": "47"
+  "Grey": "46",
+  // "White": "47"
 };
 
 /**
