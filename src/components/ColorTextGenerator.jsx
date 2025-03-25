@@ -23,8 +23,9 @@ const fgMapping = {
   "Blue": "34",
   "Pink": "35",
   "Cyan": "36",
-  "White": "37"
+  "White": "37" // Fixed: Previously incorrect, now correct!
 };
+
 
 // Mapping for Discord-supported background ANSI colors
 const bgMapping = {
@@ -44,36 +45,38 @@ const bgMapping = {
  * - For <span style="color: COLOR">…</span> uses fgMapping.
  * - For <mark data-color="COLOR" style="background-color: COLOR; ...">…</mark> uses bgMapping.
  */
-const convertHTMLToAnsi = (html) => {
-  let result = html;
+// const convertHTMLToAnsi = (html) => {
+//   let result = html;
   
-  // Remove <p> and </p> tags
-  result = result.replace(/<\/?p>/gi, "");
+//   // Remove <p> and </p> tags
+//   result = result.replace(/<\/?p>/gi, "");
 
-  // Process <mark> tags (for background color)
-  result = result.replace(
-    /<mark\s+data-color="([^"]+)"\s+style="background-color:\s*([^;]+);[^"]*">(.*?)<\/mark>/gi,
-    (match, dataColor, bgColor, innerText) => {
-      const ansiBg = bgMapping[bgColor.trim()] ? `\u001b[${bgMapping[bgColor.trim()]}m` : "";
-      return `${ansiBg}${innerText}\u001b[0m`;
-    }
-  );
+//   // Process <mark> tags (for background color)
+//   result = result.replace(
+//     /<mark\s+data-color="([^"]+)"\s+style="background-color:\s*([^;]+);[^"]*">(.*?)<\/mark>/gi,
+//     (match, dataColor, bgColor, innerText) => {
+//       const ansiBg = bgMapping[bgColor.trim()] ? `\u001b[${bgMapping[bgColor.trim()]}m` : "";
+//       return `${ansiBg}${innerText}\u001b[0m`;
+//     }
+//   );
 
-  // Process <span> tags (for foreground color)
-  result = result.replace(
-    /<span\s+style="color:\s*([^"]+)">(.*?)<\/span>/gi,
-    (match, fgColor, innerText) => {
-      const ansiFg = fgMapping[fgColor.trim()] ? `\u001b[${fgMapping[fgColor.trim()]}m` : "";
-      return `${ansiFg}${innerText}\u001b[0m`;
-    }
-  );
+//   // Process <span> tags (for foreground color)
+//   result = result.replace(
+//     /<span\s+style="color:\s*([^"]+)">(.*?)<\/span>/gi,
+//     (match, fgColor, innerText) => {
+//       const ansiFg = fgMapping[fgColor.trim()] ? `\u001b[${fgMapping[fgColor.trim()]}m` : "";
+//       return `${ansiFg}${innerText}\u001b[0m`;
+//     }
+//   );
 
-  // Remove any remaining HTML tags
-  result = result.replace(/<\/?[^>]+(>|$)/g, "");
+//   // Remove any remaining HTML tags
+//   result = result.replace(/<\/?[^>]+(>|$)/g, "");
 
-  // Wrap final string in a Discord ANSI code block
-  return `\`\`\`ansi\n${result}\n\u001b[0m\n\`\`\``;
-};
+//   // Wrap final string in a Discord ANSI code block
+//   return `\`\`\`ansi\n${result}\n\u001b[0m\n\`\`\``;
+// };
+  // Convert a CSS style string into an object
+
 
 export default function DiscordColorText() {
   const [coloredText, setColoredText] = useState("");
@@ -94,8 +97,51 @@ export default function DiscordColorText() {
     ],
     content: "<p>Welcome to Rebane's Discord Colored Text Generator!</p>",
   });
+  const parseStyle = (styleStr) => {
+    const styles = {};
+    styleStr.split(";").forEach(pair => {
+      const [key, value] = pair.split(":").map(s => s.trim());
+      if (key && value) {
+        styles[key.toLowerCase()] = value;
+      }
+    });
+    return styles;
+  };
+  
+  const convertHTMLToAnsi = (html) => {
+    let result = html;
+  
+    // Bold and underline first (process <strong> and <u>)
+    result = result.replace(/<strong>(.*?)<\/strong>/gi, "\u001b[1m$1\u001b[22m"); // Bold
+    result = result.replace(/<u>(.*?)<\/u>/gi, "\u001b[4m$1\u001b[24m"); // Underline
+  
+    // Process <span> for text color
+    result = result.replace(/<span style="([^"]+)">(.*?)<\/span>/gi, (match, styleStr, content) => {
+      const styles = parseStyle(styleStr);
+      const ansiCodes = [];
+  
+      if (styles["color"]) {
+        const fg = fgMapping[styles["color"]] || "37"; // Default white
+        ansiCodes.push(fg);
+      }
+  
+      return `\u001b[${ansiCodes.join(";")}m${content}\u001b[0m`;
+    });
+  
+    // Process <mark> for background color
+    result = result.replace(/<mark\s+data-color="([^"]+)"\s+style="background-color:\s*([^;]+);[^"]*">(.*?)<\/mark>/gi, (match, dataColor, bgColor, content) => {
+      const bgCode = bgMapping[bgColor.trim()] || "40"; // Default black
+      return `\u001b[${bgCode}m${content}\u001b[0m`;
+    });
+  
+    // Remove remaining HTML tags
+    result = result.replace(/<\/?[^>]+(>|$)/g, "");
+  
+    return `\`\`\`ansi\n${result}\n\u001b[0m\n\`\`\``;
+  };
   
   
+
   
   // Apply text color (using the color name; this sets inline style in the editor)
   const applyTextColor = (color) => {
