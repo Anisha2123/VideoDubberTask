@@ -1,12 +1,36 @@
-# React + Vite
+🎨 Discord Color Text Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+A Discord Color Text Generator that allows users to generate colored text for Discord using a rich text editor. Easily customize text with bold, underline, foreground color, and background color and copy the formatted text with a single click!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🚀 Features
+✅ Rich Text Editor – Type and style your text easily.
+✅ Text Color Selection – Choose from various colors for text.
+✅ Background Color Selection – Change background color of text.
+✅ Formatting Options – Apply bold and underline styles.
+✅ Reset Formatting – Clear all styles with one click.
+✅ Copy to Clipboard – Quickly copy the formatted text.
 
-## Expanding the ESLint configuration
+🎯 How It Works
+=> Type or paste your text in the editor.
+=> Select text color by clicking on a color box.
+=> Select background color to enhance the text.
+=> Use formatting buttons to apply bold or underline.
+=> Reset formatting if needed.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Copy the final output and use it on Discord!
+
+🛠️ Tech Stack
+Frontend: React.js, Mantine UI
+Styling: CSS, Responsive Design
+
+Libraries Used:
+Mantine for UI components
+Tiptap for the rich text editor
+
+📸 Screenshots
+
+![video-dubber-task-tawny vercel app_(Nest Hub)](https://github.com/user-attachments/assets/e0f4f13f-9777-4aa8-9e62-014f9f29f249)
+
+![video-dubber-task-tawny vercel app_(iPhone 12 Pro)](https://github.com/user-attachments/assets/891228da-b4dc-469d-b26e-cfd5ffe35a0b)
+
