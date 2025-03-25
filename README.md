@@ -34,6 +34,9 @@ Tiptap for the rich text editor
 
 ![video-dubber-task-tawny vercel app_(iPhone 12 Pro)](https://github.com/user-attachments/assets/891228da-b4dc-469d-b26e-cfd5ffe35a0b)
 
+![image](https://github.com/user-attachments/assets/b5ea6ad1-b3e6-4ff1-b018-fa5eb86e71b2)
+
+
 👨‍💻 Developed by: Anisha Birla
 
 🚀 Feel free to fork, star, and contribute! 🌟
