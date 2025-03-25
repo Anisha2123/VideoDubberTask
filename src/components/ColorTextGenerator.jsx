@@ -97,7 +97,7 @@ export default function DiscordColorText() {
         placeholder: "Type here...",
       }),
     ],
-    content: "<p>Welcome to Rebane's Discord Colored Text Generator!</p>",
+    content: "<p>Welcome to Anisha's Discord Colored Text Generator!</p>",
   });
   const parseStyle = (styleStr) => {
     const styles = {};
