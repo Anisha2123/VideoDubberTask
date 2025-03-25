@@ -5,9 +5,11 @@
   padding: 0;
   box-sizing: border-box;
 }
-/* .con{
-  border:1px solid red;
-} */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #c8e1ce;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -188,3 +190,59 @@ Copy code
   background-color:#c0247a;
 }
 
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .sub-con {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .editor {
+    height: 4rem;
+    min-height: 4rem;
+  }
+
+  .btns {
+    gap: 1rem;
+  }
+
+  .btn {
+    width: 8rem;
+    height: 2rem;
+    padding: 1rem;
+  }
+
+  .copy-button {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sub-con {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .editor {
+    min-height: 3.5rem;
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    width: 7rem;
+    height: 1.8rem;
+    font-size: 0.9rem;
+  }
+
+  .color-box {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .copy-button {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+}
