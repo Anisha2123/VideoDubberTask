@@ -2,7 +2,8 @@
 
 
 import React, { useState } from "react";
-import { Container, Button, Group, Text, ActionIcon, Paper } from "@mantine/core";
+// import { Container, Button, Group, Text, ActionIcon, Paper } from "@mantine/core";
+import { ActionIcon, Container, Textarea, Button, Title, Text, Paper, Group, Stack, Tooltip } from '@mantine/core';
 import { RichTextEditor } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -215,19 +216,18 @@ export default function DiscordColorText() {
   
 
   return (
-    <Container size="md" className="container">
-      <Paper shadow="xl" radius="lg" p="xl" className="paper">
-        <Text size="xl" weight={700} align="center" className="title">
-          Discord Colored Text Generator
-        </Text>
+    <div className="container">
+    <Container className="container">
+      <Paper shadow="md" radius="lg" p="xl" className="paper">
+      <Title order={2} align="center" mb="lg">Discord Color Text Generator</Title>
 
         {/* RichTextEditor */}
-        <RichTextEditor editor={editor} className="editor">
+        <RichTextEditor editor={editor} className="editor" style={{ height: "5rem", minHeight: "5rem", maxHeight: "600px", borderRadius: "1rem", padding: "0rem", border: "none", margin: "2rem" }}>
           <RichTextEditor.Content />
         </RichTextEditor>
 
         {/* Text Color Selection */}
-        <Text align="center" weight={600} mt="md">
+        <Text align="center" weight={600} mt="md" className="head">
           Text Color
         </Text>
         <Group position="center" mt="md" spacing="md">
@@ -244,7 +244,7 @@ export default function DiscordColorText() {
         </Group>
 
         {/* Background Color Selection */}
-        <Text align="center" weight={600} mt="md">
+        <Text align="center" weight={600} mt="md" className="head">
           Background Color
         </Text>
         <Group position="center" mt="md" spacing="md">
@@ -260,14 +260,14 @@ export default function DiscordColorText() {
           ))}
         </Group>
         {/* Formatting Buttons: Bold, Underline, Reset */}
-        <Group position="center" mt="md" spacing="md">
-  <Button onClick={toggleBold} variant="outline">
+        <Group position="center" mt="md" spacing="md" className="btns">
+  <Button onClick={toggleBold} variant="outline" className="btn">
     Bold
   </Button>
-  <Button onClick={toggleUnderline} variant="outline">
+  <Button onClick={toggleUnderline} variant="outline" className="btn">
     Underline
   </Button>
-  <Button onClick={resetFormatting} color="red" variant="outline">
+  <Button  radius="md" onClick={resetFormatting} color="red" variant="outline" className="btn">
     Reset
   </Button>
 </Group>
@@ -287,6 +287,7 @@ export default function DiscordColorText() {
         </Button>
       </Paper>
     </Container>
+    </div>
   );
 }
 
