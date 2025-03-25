@@ -83,7 +83,71 @@ const applyBackgroundColor = (color) => {
     return color;
   });
 };
-  
+const convertHTMLToAnsi = (html) => {
+  return html
+    .replace(/<span style="color: (#[0-9a-fA-F]+);?">(.+?)<\/span>/g, (match, color, text) => {
+      return `\x1b[38;2;${hexToRGB(color)}m${text}\x1b[0m`;
+    })
+    .replace(/<mark style="background-color: (#[0-9a-fA-F]+); color: inherit">(.+?)<\/mark>/g, (match, bgColor, text) => {
+      return `\x1b[48;2;${hexToRGB(bgColor)}m${text}\x1b[0m`;
+    });
+};
+const convertToAnsi = (text) => {
+  let textAnsi = textColors.find(c => c.name === currentTextColor)?.ansi || "";
+  let bgAnsi = backgroundColors.find(c => c.name === currentBgColor)?.ansi || "";
+
+  return `${bgAnsi}${textAnsi}${text}\x1b[0m`;
+};
+
+
+
+
+// Convert HEX to RGB (needed for ANSI codes)
+const hexToRGB = (hex) => {
+  const bigint = parseInt(hex.slice(1), 16);
+  return `${(bigint >> 16) & 255};${(bigint >> 8) & 255};${bigint & 255}`;
+};
+    
+
+const copyToClipboard = () => {
+  if (!editor) {
+    console.error("❌ Editor instance not found.");
+    return;
+  }
+
+  // Extract plain text instead of HTML
+  const plainText = editor.getText();
+  console.log("📜 Extracted Plain Text:", plainText);
+
+  // Convert text to ANSI format
+  const ansiFormattedText = convertToAnsi(plainText);
+  console.log("🎨 ANSI Formatted Text:", ansiFormattedText);
+
+  if (!ansiFormattedText.trim()) {
+    console.warn("⚠️ Empty ANSI text, nothing to copy.");
+    alert("No content to copy!");
+    return;
+  }
+
+  // Discord ANSI block format
+  const finalCopyText = `\`\`\`ansi\n${ansiFormattedText}\n\`\`\``;
+  console.log("📋 Final text copied:", finalCopyText);
+
+  // Copy to clipboard
+  navigator.clipboard.writeText(finalCopyText)
+    .then(() => {
+      console.log("✅ Successfully copied to clipboard!");
+      // alert("Text copied! Try pasting in Discord.");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    })
+    .catch(err => {
+      console.error("❌ Copy failed:", err);
+      alert("Copy failed! Check console for details.");
+    });
+};
+
+
 
   // Generate ANSI formatted text for Discord
   const generateAnsiText = () => {
@@ -97,14 +161,17 @@ const applyBackgroundColor = (color) => {
     setColoredText(`\`\`\`ansi\n${finalAnsiText}\n\`\`\``);
   };
 
-  // Copy to clipboard
-  const copyToClipboard = () => {
-    generateAnsiText();
-    navigator.clipboard.writeText(coloredText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1000);
-  };
-
+  
+  // const copyToClipboard = () => {
+  //   generateAnsiText();  // Ensure ANSI text is generated
+  //   setTimeout(() => {
+  //     navigator.clipboard.writeText(coloredText);
+  //     setCopied(true);
+    
+  //     setTimeout(() => setCopied(false), 1000);
+  //   }, 100); // Delay to ensure state updates before copying
+  // };
+  
   return (
     <Container size="md" className="container">
       <Paper shadow="xl" radius="lg" p="xl" className="paper">
