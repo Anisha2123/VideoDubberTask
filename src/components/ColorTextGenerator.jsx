@@ -217,7 +217,7 @@ export default function DiscordColorText() {
 
   return (
     <div className="container">
-    <Container className="container">
+    <Container className="sub-con">
       <Paper shadow="md" radius="lg" p="xl" className="paper">
       <Title order={2} align="center" mb="lg">Discord Color Text Generator</Title>
 
@@ -247,7 +247,7 @@ export default function DiscordColorText() {
         <Text align="center" weight={600} mt="md" className="head">
           Background Color
         </Text>
-        <Group position="center" mt="md" spacing="md">
+        <Group position="center" mt="md" spacing="md" className="boxes">
           {Object.keys(bgMapping).map((colorName) => (
             <ActionIcon
               key={colorName}
@@ -276,7 +276,8 @@ export default function DiscordColorText() {
 
         <textarea value={coloredText} readOnly className="textarea output" />
 
-        <Button
+      <div className="copy-section">
+      <Button
           fullWidth
           mt="md"
           size="md"
@@ -285,6 +286,7 @@ export default function DiscordColorText() {
         >
           {copied ? "✔ Copied!" : "Copy to Clipboard"}
         </Button>
+      </div>
       </Paper>
     </Container>
     </div>
