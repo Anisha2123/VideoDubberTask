@@ -83,5 +83,32 @@
 .copy-button.copied {
   background-color: #28a745; /* Green when copied */
 }
+/* ------- */
+✅ CSS for Styling
+css
+Copy code
+.editor-container {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: #ffffff;
+}
 
+.editor {
+  border: 1px solid #ddd;
+  min-height: 150px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.color-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
 
